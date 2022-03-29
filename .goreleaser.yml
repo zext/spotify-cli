@@ -1,0 +1,24 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/spotify-cli
+    ldflags:
+      - -s -w -X github.com/zext/spotify-cli/cmd/spotify-cli/cmd.Version={{ .Version }}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+
+archives:
+  - replacements:
+      amd64: x86_64
+
+brews:
+  - tap:
+      owner: zext
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
