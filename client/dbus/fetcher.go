@@ -31,5 +31,6 @@ func (f *Fetcher) CurrentTrack() (*model.Track, error) {
 		Album:   metadata.Album,
 		Artists: metadata.Artist,
 		Title:   metadata.Title,
+		URL:     metadata.URL,
 	}, nil
 }
