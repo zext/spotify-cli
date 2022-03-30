@@ -5,6 +5,7 @@ import (
 	"io"
 	"text/template"
 
+	"github.com/zext/spotify-cli/internal/stringsx"
 	"github.com/zext/spotify-cli/model"
 )
 
@@ -23,7 +24,12 @@ func (s *FetcherService) CurrentTrack(format string) error {
 		return fmt.Errorf("failed to get current track: %w", err)
 	}
 
-	tmpl, err := template.New("").Parse(format)
+	funcMap := template.FuncMap{
+		"join":    stringsx.Join,
+		"joinAnd": stringsx.JoinAnd,
+	}
+
+	tmpl, err := template.New("").Funcs(funcMap).Parse(format)
 	if err != nil {
 		return fmt.Errorf("failed to parse template: %w", err)
 	}
