@@ -46,7 +46,7 @@ var fetchCmd = &cobra.Command{
 }
 
 func init() {
-	fetchCmd.Flags().StringVarP(&format, "format", "f", "{{ .Title }} by {{ slice .Artists 0 }}\n", "format as text/template")
+	fetchCmd.Flags().StringVarP(&format, "format", "f", "{{ .Title }} by {{ joinAnd .Artists }}\n", "format as text/template")
 
 	rootCmd.AddCommand(fetchCmd)
 }
